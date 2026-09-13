@@ -43,8 +43,8 @@ msgid "Читает ровно одно сообщение; байты посл�
 msgstr "Reads exactly one message; bytes after its end are forbidden."
 
 msgid ""
-"Читает сообщение с неотрицательного offset. Возвращает экземпляр и абсолютную позицию конца "
-"сообщения в переданном буфере."
+"Читает сообщение с неотрицательного смещения. Возвращает экземпляр и абсолютную позицию конца"
+" сообщения в переданном буфере."
 msgstr ""
 "Reads a message from a nonnegative offset. Returns the instance and the absolute end position of "
 "the message in the supplied buffer."

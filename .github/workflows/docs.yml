@@ -24,6 +24,14 @@ jobs:
         run: uv run --no-sync python -m sphinx -E -a -n -W --keep-going -b html -D language=ru docs docs/_build/html/ru
       - name: Build English documentation
         run: uv run --no-sync python -m sphinx -E -a -n -W --keep-going -b html -D language=en docs docs/_build/html/en
+      - name: Test Russian documentation examples
+        run: uv run --no-sync python -m sphinx -E -a -n -W --keep-going -b doctest -D language=ru docs docs/_build/doctest/ru
+      - name: Test English documentation examples
+        run: uv run --no-sync python -m sphinx -E -a -n -W --keep-going -b doctest -D language=en docs docs/_build/doctest/en
+      - name: Build translation catalogs
+        run: uv run --no-sync python -m sphinx -E -a -n -W --keep-going -b gettext docs docs/_build/gettext
+      - name: Check documentation
+        run: uv run --no-sync python docs/check.py
       - uses: actions/upload-pages-artifact@v4
         with:
           path: docs/_build/html

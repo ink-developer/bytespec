@@ -13,9 +13,9 @@ Binary / wire format
 
    constructor (2 bytes) | flags (8 bytes) | body length (4 bytes) | fields
 
-Header занимает 14 байт, даже без optional-полей. ``PayloadLength`` хранит
+Header занимает 14 байт, даже без необязательных полей. ``PayloadLength`` хранит
 число байтов всех полей после полного header. Header целиком исключён
-из этой длины. ``__header__`` позволяет изменить порядок, encoding или
+из этой длины. ``__header__`` позволяет изменить порядок, представление или
 убрать элементы, включая весь header — :doc:`headers`.
 
 ``__constructor__`` по умолчанию равен 1, ``__byte_order__`` —

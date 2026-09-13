@@ -19,7 +19,7 @@ Resolver, его встроенные фабрики и собранные metad
 
 .. autodata:: bytespec.models.UIntEncoding
 
-   Те же unsigned encodings для Constructor, PayloadLength и Flags.
+   Те же беззнаковые представления для Constructor, PayloadLength и Flags.
    Числа означают ширину в байтах, VarUInt — переменное представление.
 
 .. autodata:: bytespec.models.DefaultFactory
