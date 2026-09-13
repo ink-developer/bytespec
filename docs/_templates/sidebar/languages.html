@@ -1,0 +1,10 @@
+<nav class="sidebar-languages" aria-label="{{ 'Язык' if language == 'ru' else 'Language' }}">
+  {% for code, label in [('ru', 'Русский'), ('en', 'English')] %}
+    {% if code == language %}
+      <span lang="{{ code }}" aria-current="true">{{ label }}</span>
+    {% else %}
+      <a href="{{ '../' * (pagename.count('/') + 1) }}{{ code }}/{{ pagename }}.html" lang="{{ code }}" hreflang="{{ code }}">{{ label }}</a>
+    {% endif %}
+    {% if not loop.last %}<span aria-hidden="true"> · </span>{% endif %}
+  {% endfor %}
+</nav>

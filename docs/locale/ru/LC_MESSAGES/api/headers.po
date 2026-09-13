@@ -1,0 +1,56 @@
+# Russian translations for bytespec.
+# Copyright (C) 2026, ink-developer
+# Distributed under the MIT license.
+msgid ""
+msgstr ""
+"Project-Id-Version: bytespec 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-12 19:57+0300\n"
+"PO-Revision-Date: 2026-09-12 16:58+0000\n"
+"Last-Translator: bytespec contributors\n"
+"Language: ru\n"
+"Language-Team: Russian\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || "
+"n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "Model identifier from **constructor**, validated during decoding."
+msgstr "Model identifier from **constructor**, validated during decoding."
+
+msgid "Unsigned integer width in bytes (1, 2, 4, 8) or VarUInt."
+msgstr "Unsigned integer width in bytes (1, 2, 4, 8) or VarUInt."
+
+msgid ""
+"The int type is validated when building the schema; the value range is validated during encoding."
+" Nested models skip this element."
+msgstr ""
+"The int type is validated when building the schema; the value range is validated during encoding."
+" Nested models skip this element."
+
+msgid "The size of all encoded fields, excluding the entire header."
+msgstr "Размер всех закодированных полей, исключая весь header."
+
+msgid "The unsigned integer width in bytes (1, 2, 4, 8), or VarUInt."
+msgstr "Ширина unsigned integer в байтах (1, 2, 4, 8) или VarUInt."
+
+msgid ""
+"When reading, bounds the field buffer by the declared length. The position of this element within"
+" the header does not change the meaning of the stored number."
+msgstr ""
+"При чтении ограничивает буфер полей объявленной длиной. Позиция этого элемента внутри header не "
+"меняет смысл записанного числа."
+
+msgid "A bitmap indicating the presence of optional fields, computed from their values."
+msgstr "Bitmap присутствия optional-полей, вычисляемый из их значений."
+
+msgid ""
+"A field is present if its value is not None. Bit numbers are set using field(flag=...) and are "
+"limited to 0–63; with a fixed width, all used bits are checked to ensure they fit."
+msgstr ""
+"Поле присутствует, если его значение не None. Номера битов задаются через field(flag=...) и "
+"ограничены 0–63; при фиксированной ширине проверяется, что все используемые биты в неё "
+"помещаются."
+

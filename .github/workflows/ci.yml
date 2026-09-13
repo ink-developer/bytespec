@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: "0.11.4"
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: uv sync --locked --group test
+      - run: uv run --no-sync ruff check .
+      - run: uv run --no-sync ruff format --check .
+      - run: uv run --no-sync pytest
+      - run: uv build
+      - name: Install and import the wheel in a clean environment
+        run: |
+          uv venv "$RUNNER_TEMP/bytespec-smoke"
+          uv pip install --python "$RUNNER_TEMP/bytespec-smoke/bin/python" dist/*.whl
+          "$RUNNER_TEMP/bytespec-smoke/bin/python" -I -c "import bytespec; print(bytespec.__version__)"

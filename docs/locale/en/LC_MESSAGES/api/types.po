@@ -1,0 +1,336 @@
+# English translations for bytespec.
+# Copyright (C) 2026, ink-developer
+# Distributed under the MIT license.
+msgid ""
+msgstr ""
+"Project-Id-Version: bytespec 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-12 14:53+0300\n"
+"PO-Revision-Date: 2026-09-12 11:59+0000\n"
+"Last-Translator: bytespec contributors\n"
+"Language: en\n"
+"Language-Team: English\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "Типы и спецификации"
+msgstr "Types and specifications"
+
+msgid ""
+"Числовые аннотации и спецификации импортируются из ``bytespec.types``; ``datetime`` и ``UUID`` — "
+"из стандартной библиотеки. Значения остаются обычными Python-объектами. Практические примеры: "
+":doc:`../types`."
+msgstr ""
+"Numeric annotations and specifications are imported from ``bytespec.types``; ``datetime`` and "
+"``UUID`` come from the standard library. Values remain ordinary Python objects. Practical "
+"examples: :doc:`../types`."
+
+msgid "Поддерживаемые аннотации"
+msgstr "Supported annotations"
+
+msgid ""
+"Таблица описывает автоматический выбор представления. Собственный тип поддерживается через явный "
+"codec или ``configure_codecs()``."
+msgstr ""
+"The table describes automatic representation selection. A custom type can be supported using an "
+"explicit codec or ``configure_codecs()``."
+
+msgid "Python-тип / аннотация"
+msgstr "Python type / annotation"
+
+msgid "Представление"
+msgstr "Representation"
+
+msgid "Настройки"
+msgstr "Settings"
+
+msgid "``UInt8/16/32/64``, ``Int8/16/32/64``"
+msgstr "``UInt8/16/32/64``, ``Int8/16/32/64``"
+
+msgid "Фиксированное целое, одноимённый ``…Codec``"
+msgstr "Fixed-width integer, matching ``…Codec``"
+
+msgid "Порядок байтов модели"
+msgstr "The model's byte order"
+
+msgid "``int``"
+msgstr "``int``"
+
+msgid "``VarIntCodec``: ZigZag + varint, диапазон Int64"
+msgstr "``VarIntCodec``: ZigZag + varint in the Int64 range"
+
+msgid "Для другого формата выберите числовую аннотацию"
+msgstr "Choose a numeric annotation for a different format"
+
+msgid "``Float32``, ``Float64``"
+msgstr "``Float32``, ``Float64``"
+
+msgid "IEEE 754 binary32/binary64"
+msgstr "IEEE 754 binary32/binary64"
+
+msgid "``VarUInt``, ``VarInt``"
+msgstr "``VarUInt``, ``VarInt``"
+
+msgid "Unsigned varint / ZigZag + varint, 1–10 байт"
+msgstr "Unsigned varint / ZigZag + varint, 1–10 bytes"
+
+msgid "Независимы от порядка байтов"
+msgstr "Independent of byte order"
+
+msgid "``bool``"
+msgstr "``bool``"
+
+msgid "``BoolCodec``: один байт 0/1"
+msgstr "``BoolCodec``: one byte, 0/1"
+
+msgid "Нет"
+msgstr "None"
+
+msgid "``str``"
+msgstr "``str``"
+
+msgid "``StrCodec``: длина в байтах и текст"
+msgstr "``StrCodec``: byte length followed by text"
+
+msgid "``encoding``, ``prefix_length``"
+msgstr "``encoding``, ``prefix_length``"
+
+msgid "``bytes``"
+msgstr "``bytes``"
+
+msgid "``BytesCodec``: длина и байты"
+msgstr "``BytesCodec``: length followed by bytes"
+
+msgid "``prefix_length``"
+msgstr "``prefix_length``"
+
+msgid "``datetime.datetime``"
+msgstr "``datetime.datetime``"
+
+msgid "``DatetimeCodec``: строка ``isoformat()``"
+msgstr "``DatetimeCodec``: an ``isoformat()`` string"
+
+msgid "``uuid.UUID``"
+msgstr "``uuid.UUID``"
+
+msgid "``UUIDCodec``: ровно 16 байт ``UUID.bytes``"
+msgstr "``UUIDCodec``: exactly 16 bytes from ``UUID.bytes``"
+
+msgid "Без префикса, не зависит от порядка байтов"
+msgstr "No prefix; independent of byte order"
+
+msgid "Подкласс ``str`` и ``Enum``"
+msgstr "A subclass of ``str`` and ``Enum``"
+
+msgid "``EnumCodec`` + ``StrCodec``: строковое ``.value``"
+msgstr "``EnumCodec`` + ``StrCodec``: the string ``.value``"
+
+msgid "``IntEnum`` / подкласс ``int`` и ``Enum``"
+msgstr "``IntEnum`` / a subclass of ``int`` and ``Enum``"
+
+msgid "``EnumCodec`` + ``VarIntCodec``: числовое ``.value``"
+msgstr "``EnumCodec`` + ``VarIntCodec``: the numeric ``.value``"
+
+msgid "Для другого представления — явный ``EnumCodec``"
+msgstr "Use an explicit ``EnumCodec`` for a different representation"
+
+msgid "``list[T]``"
+msgstr "``list[T]``"
+
+msgid "``ListCodec``: длина в байтах и элементы"
+msgstr "``ListCodec``: byte length followed by items"
+
+msgid "Префикс списка; тип ``T`` настраивается отдельно"
+msgstr "The list prefix; type ``T`` is configured separately"
+
+msgid "Подкласс ``ProtoModel``"
+msgstr "A subclass of ``ProtoModel``"
+
+msgid "``ModelCodec``: свой header без Constructor"
+msgstr "``ModelCodec``: its own header without Constructor"
+
+msgid "Настройки вложенного класса"
+msgstr "The nested class's settings"
+
+msgid "``T | None`` / ``Optional[T]``"
+msgstr "``T | None`` / ``Optional[T]``"
+
+msgid "Значение ``T`` при установленном бите присутствия"
+msgstr "The value of ``T`` when the presence bit is set"
+
+msgid "Обязательный ``field(flag=...)``"
+msgstr "``field(flag=...)`` is required"
+
+msgid "``Annotated[T, ...]``"
+msgstr "``Annotated[T, ...]``"
+
+msgid "Представление ``T`` с одной поддерживаемой спецификацией"
+msgstr "The representation of ``T`` with one supported specification"
+
+msgid "Спецификации ниже"
+msgstr "The specifications below"
+
+msgid ""
+"По умолчанию текст использует UTF-8, префиксы переменной длины занимают 4 байта. ``StrEnum`` "
+"подходит на версиях Python, где он доступен. Обычный ``Enum`` без наследования от ``str`` или "
+"``int`` требует явного codec."
+msgstr ""
+"By default, text uses UTF-8 and length prefixes for variable-length data occupy 4 bytes. "
+"``StrEnum`` works on Python versions where it is available. A plain ``Enum`` that does not "
+"inherit from ``str`` or ``int`` requires an explicit codec."
+
+msgid ""
+"Нет встроенного выбора для голых ``float``, ``list``, ``datetime.date``, ``datetime.time``, а "
+"также ``dict``, ``tuple``, ``set``, ``Any``, ``Literal`` и union нескольких ненулевых типов. "
+"``list[T | None]`` не поддерживается."
+msgstr ""
+"There is no built-in selection for bare ``float``, ``list``, ``datetime.date``, "
+"``datetime.time``, or for ``dict``, ``tuple``, ``set``, ``Any``, ``Literal``, and unions of "
+"multiple non-None types. ``list[T | None]`` is not supported."
+
+msgid "Целые"
+msgstr "Integers"
+
+msgid "Float и varint"
+msgstr "Float and varint"
+
+msgid ""
+"``VarUInt`` ограничен диапазоном ``0 .. 2**64 - 1``; ``VarInt`` — ``-2**63 .. 2**63 - 1``. "
+"Каноническое представление описано в :doc:`../wire-format`. ``Float32`` может округлять значение;"
+" отдельного запрета на ``NaN`` и бесконечности нет. ``BoolCodec.encode()`` использует истинность "
+"значения, а decoder принимает строго байты 0/1."
+msgstr ""
+"``VarUInt`` is limited to ``0 .. 2**64 - 1``; ``VarInt`` is limited to ``-2**63 .. 2**63 - 1``. "
+"The canonical representation is described in :doc:`../wire-format`. ``Float32`` may round the "
+"value; there is no separate restriction on ``NaN`` or infinities. ``BoolCodec.encode()`` uses the"
+" value's truthiness, while the decoder strictly accepts only bytes 0/1."
+
+msgid "Спецификации Annotated"
+msgstr "Annotated specifications"
+
+msgid "Параметры"
+msgstr "Parameters"
+
+msgid "Фиксированное целое: ``bits`` равен 8, 16, 32 или 64, ``signed`` задаёт знак."
+msgstr "A fixed-width integer: ``bits`` is 8, 16, 32, or 64; ``signed`` selects signedness."
+
+msgid "Число IEEE 754: ``bits`` равен 32 или 64."
+msgstr "An IEEE 754 number: ``bits`` is 32 or 64."
+
+msgid "Varint; при ``signed=True`` сначала используется ZigZag."
+msgstr "A varint; with ``signed=True``, ZigZag is applied first."
+
+msgid ""
+"Настройки для переиспользования через ``Annotated``. ``codec`` принимает экземпляр ``ICodec``. "
+"Приоритет настроек: :doc:`../field-configuration`."
+msgstr ""
+"Settings for reuse through ``Annotated``. ``codec`` accepts an ``ICodec`` instance. Setting "
+"precedence: :doc:`../field-configuration`."
+
+msgid "Объединение четырёх поддерживаемых видов спецификаций."
+msgstr "A union of the four supported specification types."
+
+msgid "Совместное использование настроек"
+msgstr "Combining settings"
+
+msgid ""
+"В одном ``Annotated`` допускается только одна распознаваемая спецификация; посторонние metadata "
+"игнорируются. Числовые аннотации уже содержат spec: например, ``UInt16`` — ``Annotated[int, "
+"IntegerSpec(16, signed=False)]``. Добавлять к нему второй spec через внешний ``Annotated`` "
+"нельзя."
+msgstr ""
+"Only one recognized specification is allowed in a single ``Annotated``; unrelated metadata is "
+"ignored. Numeric annotations already contain a spec: for example, ``UInt16`` is ``Annotated[int, "
+"IntegerSpec(16, signed=False)]``. A second spec cannot be added using an outer ``Annotated``."
+
+msgid ""
+"``CodecSpec`` перезаписывает ``prefix_length`` поля, если он не ``None``, и ``encoding``, если "
+"она непустая; переданный в spec codec выбирается явно. ``field(codec=...)`` применяется раньше "
+"metadata и имеет приоритет. Остальные параметры ``field()`` не перенастраивают готовый экземпляр "
+"codec."
+msgstr ""
+"``CodecSpec`` overwrites the field's ``prefix_length`` if it is not ``None``, and ``encoding`` if"
+" it is nonempty; a codec supplied in the spec is selected explicitly. ``field(codec=...)`` is "
+"applied before metadata and takes precedence. Other ``field()`` parameters do not reconfigure a "
+"ready-to-use codec instance."
+
+msgid ""
+"Произвольный ``struct``-формат поля задавайте через свой codec, см. :doc:`../codecs`. Замена "
+"codec полностью определяет результат decode: аннотация логического типа не преобразует его "
+"автоматически обратно."
+msgstr ""
+"Use a custom codec to specify an arbitrary ``struct`` format for a field; see :doc:`../codecs`. "
+"Replacing the codec fully determines the decode result: the logical type annotation does not "
+"automatically convert it back."
+
+msgid "Вспомогательная аннотация"
+msgstr "Helper annotation"
+
+msgid ""
+"Union беззнаковых числовых аннотаций для типизации Python-кода. Сам по себе не является "
+"допустимой аннотацией сериализуемого поля: автоматический выбор между несколькими числовыми "
+"форматами не поддержан. псевдоним для :py:class:`~typing.Annotated`\\ [:py:class:`int`, "
+":py:class:`~bytespec.types.spec.IntegerSpec`\\ (bits=\\ 16, signed=\\ False)] | "
+":py:class:`~typing.Annotated`\\ [:py:class:`int`, :py:class:`~bytespec.types.spec.IntegerSpec`\\ "
+"(bits=\\ 32, signed=\\ False)] | :py:class:`~typing.Annotated`\\ [:py:class:`int`, "
+":py:class:`~bytespec.types.spec.IntegerSpec`\\ (bits=\\ 64, signed=\\ False)] | "
+":py:class:`~typing.Annotated`\\ [:py:class:`int`, :py:class:`~bytespec.types.spec.IntegerSpec`\\ "
+"(bits=\\ 8, signed=\\ False)]"
+msgstr ""
+"A union of unsigned numeric annotations for type hints in Python code. It is not a valid "
+"annotation for a serializable field on its own: automatic selection between multiple numeric "
+"formats is not supported. alias of :py:class:`~typing.Annotated`\\ [:py:class:`int`, "
+":py:class:`~bytespec.types.spec.IntegerSpec`\\ (bits=\\ 16, signed=\\ False)] | "
+":py:class:`~typing.Annotated`\\ [:py:class:`int`, :py:class:`~bytespec.types.spec.IntegerSpec`\\ "
+"(bits=\\ 32, signed=\\ False)] | :py:class:`~typing.Annotated`\\ [:py:class:`int`, "
+":py:class:`~bytespec.types.spec.IntegerSpec`\\ (bits=\\ 64, signed=\\ False)] | "
+":py:class:`~typing.Annotated`\\ [:py:class:`int`, :py:class:`~bytespec.types.spec.IntegerSpec`\\ "
+"(bits=\\ 8, signed=\\ False)]"
+
+msgid "Select a fixed-width integer in ``Annotated[int, ...]``."
+msgstr "Select a fixed-width integer in ``Annotated[int, ...]``."
+
+msgid "The number of bits: 8, 16, 32, or 64."
+msgstr "The number of bits: 8, 16, 32, or 64."
+
+msgid "Allow negative values (signed representation)."
+msgstr "Allow negative values (signed representation)."
+
+msgid "Select an IEEE 754 number in ``Annotated[float, ...]``."
+msgstr "Select an IEEE 754 number in ``Annotated[float, ...]``."
+
+msgid "The number of bits: 32 or 64. Float32 rounds a Python float to its representation."
+msgstr "The number of bits: 32 or 64. Float32 rounds a Python float to its representation."
+
+msgid "Select a varint in ``Annotated[int, ...]``."
+msgstr "Select a varint in ``Annotated[int, ...]``."
+
+msgid "If True, use ZigZag and the Int64 range; if False, use an unsigned varint and the UInt64 range."
+msgstr "If True, use ZigZag and the Int64 range; if False, use an unsigned varint and the UInt64 range."
+
+msgid "Define reusable field settings using ``Annotated``."
+msgstr "Define reusable field settings using ``Annotated``."
+
+msgid ""
+"Prefix size: 1, 2, 4, or 8 bytes, or ``VarUInt``. ``None`` leaves the field setting unchanged; "
+"``VarInt`` is not supported."
+msgstr ""
+"Prefix size: 1, 2, 4, or 8 bytes, or ``VarUInt``. ``None`` leaves the field setting unchanged; "
+"``VarInt`` is not supported."
+
+msgid "The text encoding. A nonempty value replaces the field encoding."
+msgstr "The text encoding. A nonempty value replaces the field encoding."
+
+msgid "A ready-to-use codec instance instead of automatic selection."
+msgstr "A ready-to-use codec instance instead of automatic selection."
+
+msgid ""
+"One supported specification is allowed per Annotated. An explicit ``field(codec=...)`` takes "
+"precedence over CodecSpec."
+msgstr ""
+"One supported specification is allowed per Annotated. An explicit ``field(codec=...)`` takes "
+"precedence over CodecSpec."
+

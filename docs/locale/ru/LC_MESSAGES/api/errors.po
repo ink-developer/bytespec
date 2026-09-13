@@ -1,0 +1,65 @@
+# Russian translations for bytespec.
+# Copyright (C) 2026, ink-developer
+# Distributed under the MIT license.
+msgid ""
+msgstr ""
+"Project-Id-Version: bytespec 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-12 19:57+0300\n"
+"PO-Revision-Date: 2026-09-12 16:58+0000\n"
+"Last-Translator: bytespec contributors\n"
+"Language: ru\n"
+"Language-Team: Russian\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || "
+"n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid ""
+"Exception\n"
+"└── BytespecError\n"
+"    ├── SchemaError\n"
+"    ├── EncodeError\n"
+"    └── DecodeError"
+msgstr ""
+"Exception\n"
+"└── BytespecError\n"
+"    ├── SchemaError\n"
+"    ├── EncodeError\n"
+"    └── DecodeError"
+
+msgid "Common base class for schema, encoding, and decoding errors."
+msgstr "Общий базовый класс ошибок схемы, кодирования и декодирования."
+
+msgid "Unsupported or conflicting model or codec types/settings."
+msgstr "Неподдерживаемые или противоречивые типы/настройки модели или codec."
+
+msgid ""
+"Usually raised when declaring a model or creating a codec. Some configuration errors, such as a "
+"non-text string encoding, surface during writing or reading."
+msgstr ""
+"Обычно возникает при объявлении модели или создании codec. Некоторые ошибки настройки, например "
+"нетекстовая кодировка строки, проявляются при записи или чтении."
+
+msgid "The value cannot be written in the selected binary representation."
+msgstr "Значение нельзя записать в выбранном бинарном представлении."
+
+msgid ""
+"For example, a number outside its range, a length prefix overflow, text that cannot be "
+"represented in the encoding, or a missing required value."
+msgstr ""
+"Например, число вне диапазона, переполнение префикса длины, непредставимый в кодировке текст или "
+"отсутствие обязательного значения."
+
+msgid "The buffer is incomplete or does not match the expected binary format."
+msgstr "Буфер неполон или не соответствует ожидаемому бинарному формату."
+
+msgid ""
+"For example, an incorrect constructor, missing bytes, an invalid value, or data after the message"
+" when calling ``ProtoModel.decode()``."
+msgstr ""
+"Например, неверный constructor, недостающие байты, некорректное значение или данные после "
+"сообщения при вызове ``ProtoModel.decode()``."
+

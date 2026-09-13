@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>bytespec documentation</title>
+    <script>
+      const preferred = navigator.languages?.[0] || navigator.language || "en";
+      const language = /^ru(?:-|$)/i.test(preferred) ? "ru" : "en";
+      location.replace(language + "/index.html" + location.search + location.hash);
+    </script>
+  </head>
+  <body>
+    <p><a href="ru/index.html" lang="ru" hreflang="ru">Русский</a> · <a href="en/index.html" lang="en" hreflang="en">English</a></p>
+  </body>
+</html>

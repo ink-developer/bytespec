@@ -1,0 +1,223 @@
+# Russian translations for bytespec.
+# Copyright (C) 2026, ink-developer
+# Distributed under the MIT license.
+msgid ""
+msgstr ""
+"Project-Id-Version: bytespec 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-12 19:57+0300\n"
+"PO-Revision-Date: 2026-09-12 16:58+0000\n"
+"Last-Translator: bytespec contributors\n"
+"Language: ru\n"
+"Language-Team: Russian\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || "
+"n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "Codecs"
+msgstr "Codecs"
+
+msgid "Interface for writing and reading a single value of type T."
+msgstr "Интерфейс записи и чтения одного значения типа T."
+
+msgid ""
+"An instance can be passed to ``field(codec=...)``. Inheriting from ICodec is optional: encode and"
+" decode methods that follow this contract are sufficient. A codec can be reused; the read "
+"position is passed through offset."
+msgstr ""
+"Экземпляр можно передать в ``field(codec=...)``. Наследование от ICodec необязательно: достаточно"
+" методов encode и decode с этим контрактом. Codec может переиспользоваться; позиция чтения "
+"передаётся через offset."
+
+msgid "Write a single value in the selected representation."
+msgstr "Записать одно значение в выбранном представлении."
+
+msgid "The value to write."
+msgstr "Значение для записи."
+
+msgid "The byte order of fixed-width numbers and prefixes."
+msgstr "Порядок байтов фиксированных чисел и префиксов."
+
+msgid "The binary representation of the value."
+msgstr "Бинарное представление значения."
+
+msgid "The value cannot be represented. A custom codec must raise this error     itself for data errors."
+msgstr ""
+"Значение невозможно представить. Собственный codec     должен сам использовать эту ошибку для "
+"ошибок данных."
+
+msgid "Read a single value starting at offset."
+msgstr "Прочитать одно значение начиная с offset."
+
+msgid "The buffer containing the encoded value."
+msgstr "Буфер с закодированным значением."
+
+msgid "The nonnegative absolute position where the value starts."
+msgstr "Неотрицательная абсолютная позиция начала значения."
+
+msgid ""
+"The value and the absolute position after it in the same buffer. The remaining bytes do not have "
+"to be consumed."
+msgstr ""
+"Значение и абсолютная позиция после него в том же буфере. Остальные байты не требуют полного "
+"потребления."
+
+msgid ""
+"There are not enough bytes, or the value is invalid. The implementation     must check bounds and"
+" contents itself."
+msgstr ""
+"Недостаточно байтов или значение некорректно.     Реализация должна сама проверять границы и "
+"содержимое."
+
+msgid ""
+"A list item codec must advance offset by a positive number of bytes while staying within the "
+"supplied buffer."
+msgstr ""
+"Codec элемента списка должен продвигать offset на положительное число байтов, оставаясь в "
+"границах переданного буфера."
+
+msgid "Unsigned 8-bit integer: 0–255, one byte by default."
+msgstr "Беззнаковое 8-битное целое: 0–255, один байт по умолчанию."
+
+msgid "Unsigned 16-bit integer: 0–65535, two bytes by default."
+msgstr "Беззнаковое 16-битное целое: 0–65535, два байта по умолчанию."
+
+msgid "Unsigned 32-bit integer: 0 .. 2**32 - 1, four bytes."
+msgstr "Беззнаковое 32-битное целое: 0 .. 2**32 - 1, четыре байта."
+
+msgid "Unsigned 64-bit integer: 0 .. 2**64 - 1, eight bytes."
+msgstr "Беззнаковое 64-битное целое: 0 .. 2**64 - 1, восемь байт."
+
+msgid "Signed 8-bit integer: -128–127, one byte by default."
+msgstr "Знаковое 8-битное целое: -128–127, один байт по умолчанию."
+
+msgid "Signed 16-bit integer: -32768–32767, two bytes by default."
+msgstr "Знаковое 16-битное целое: -32768–32767, два байта по умолчанию."
+
+msgid "Signed 32-bit integer: -2**31 .. 2**31 - 1, four bytes."
+msgstr "Знаковое 32-битное целое: -2**31 .. 2**31 - 1, четыре байта."
+
+msgid "Signed 64-bit integer: -2**63 .. 2**63 - 1, eight bytes."
+msgstr "Знаковое 64-битное целое: -2**63 .. 2**63 - 1, восемь байт."
+
+msgid "IEEE 754 binary32: four bytes, rounding the Python float."
+msgstr "IEEE 754 binary32: четыре байта с округлением Python float."
+
+msgid "IEEE 754 binary64: eight bytes in the model's byte order."
+msgstr "IEEE 754 binary64: восемь байт в порядке байтов модели."
+
+msgid "Canonical unsigned varint: 0 .. 2**64 - 1, 1 to 10 bytes."
+msgstr "Канонический unsigned varint: 0 .. 2**64 - 1, от 1 до 10 байт."
+
+msgid ""
+"Groups of 7 bits are written starting with the least significant. The model's byte order does not"
+" affect this representation."
+msgstr "Группы по 7 бит записываются начиная с младшей. Порядок байтов модели на представление не влияет."
+
+msgid "Signed varint: ZigZag + unsigned varint in the Int64 range."
+msgstr "Знаковый varint: ZigZag + unsigned varint, диапазон Int64."
+
+msgid "Uses 1–10 bytes regardless of the model's byte order."
+msgstr "Занимает 1–10 байт независимо от порядка байтов модели."
+
+msgid "A Boolean value in one byte: 0 or 1."
+msgstr "Логическое значение в одном байте: 0 или 1."
+
+msgid "Text prefixed with the length in encoded bytes, not characters."
+msgstr "Текст с префиксом длины закодированных байтов, не символов."
+
+msgid "Prefix size: 1, 2, 4, or 8 bytes, or ``VarUInt``. Defaults to 4 bytes."
+msgstr "Размер префикса: 1, 2, 4, 8 байт или ``VarUInt``. По умолчанию 4 байта."
+
+msgid "Python encoding, UTF-8 by default."
+msgstr "Кодировка Python, по умолчанию UTF-8."
+
+msgid "Unsupported prefix or unknown encoding."
+msgstr "Неподдерживаемый префикс или неизвестная кодировка."
+
+msgid "Bytes prefixed with their length."
+msgstr "Байты с префиксом их длины."
+
+msgid ""
+"Prefix size: 1, 2, 4, or 8 bytes, or ``VarUInt``. Defaults to 4 bytes. The prefix itself is not "
+"included in the stored length."
+msgstr ""
+"Размер префикса: 1, 2, 4, 8 байт или ``VarUInt``. По умолчанию 4 байта. Сам префикс не входит в "
+"записанную длину."
+
+msgid "Unsupported prefix, including ``VarInt``."
+msgstr "Неподдерживаемый префикс, включая ``VarInt``."
+
+msgid "Exactly length bytes without a length prefix."
+msgstr "Ровно length байт без префикса длины."
+
+msgid "The nonnegative fixed size of the value."
+msgstr "Неотрицательный фиксированный размер значения."
+
+msgid "Negative length."
+msgstr "Отрицательная длина."
+
+msgid "A datetime as a length-prefixed ISO 8601 string."
+msgstr "Дата как строка ISO 8601 с префиксом длины."
+
+msgid ""
+"Preserves the UTC offset from isoformat(), but not the time zone name. A datetime without tzinfo "
+"remains naive after reading."
+msgstr ""
+"Сохраняется смещение UTC из isoformat(), но не имя часовой зоны. Дата без tzinfo остаётся без "
+"него после чтения."
+
+msgid "Prefix size: 1, 2, 4, or 8 bytes, or ``VarUInt``."
+msgstr "Размер префикса: 1, 2, 4, 8 байт или ``VarUInt``."
+
+msgid "Encoding of the ISO string, UTF-8 by default."
+msgstr "Кодировка ISO-строки, по умолчанию UTF-8."
+
+msgid "A UUID as exactly 16 bytes from UUID.bytes, without a length prefix."
+msgstr "UUID как ровно 16 байт UUID.bytes, без префикса длины."
+
+msgid "The model's byte order does not switch this representation to bytes_le."
+msgstr "Порядок байтов модели не меняет это представление на bytes_le."
+
+msgid "A list prefixed with the total size of its encoded items in bytes."
+msgstr "Список с префиксом общего размера закодированных элементов в байтах."
+
+msgid ""
+"The codec for a single item. When reading, it must advance offset by a positive number of bytes "
+"within the supplied buffer."
+msgstr ""
+"Codec одного элемента. При чтении должен продвигать offset на положительное число байтов в "
+"пределах переданного буфера."
+
+msgid ""
+"Prefix size: 1, 2, 4, or 8 bytes, or ``VarUInt``. Defaults to 4 bytes. The prefix does not store "
+"the item count."
+msgstr ""
+"Размер префикса: 1, 2, 4, 8 байт или ``VarUInt``. По умолчанию 4 байта. Префикс не хранит "
+"количество элементов."
+
+msgid "Unsupported length prefix."
+msgstr "Неподдерживаемый префикс длины."
+
+msgid "An enum encoded using a codec for its value."
+msgstr "Enum, записываемый через codec его значения."
+
+msgid "The enum class used to reconstruct members via enum_type(value)."
+msgstr "Класс enum для восстановления через enum_type(value)."
+
+msgid "The codec for .value, such as StrCodec or UInt8Codec."
+msgstr "Codec для .value, например StrCodec или UInt8Codec."
+
+msgid "A nested model with its own framing, excluding Constructor, and its own byte order."
+msgstr "Вложенная модель со своим framing без Constructor и порядком байтов."
+
+msgid ""
+"The concrete class to read via decode_from(). Subclasses are not selected automatically by "
+"constructor."
+msgstr ""
+"Конкретный класс для чтения через decode_from(). Автоматического выбора подкласса по constructor "
+"нет."
+

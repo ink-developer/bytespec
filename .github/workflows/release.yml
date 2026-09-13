@@ -1,0 +1,74 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    if: startsWith(github.event.release.tag_name, 'v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: "0.11.4"
+          python-version: "3.13"
+      - run: uv build
+      - name: Check distribution metadata
+        run: uvx twine check --strict dist/*
+      - name: Check release version and typed package contents
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          uv run --no-project python - <<'PY'
+          import os
+          import tarfile
+          import tomllib
+          import zipfile
+          from email.parser import BytesParser
+          from pathlib import Path
+
+          project = tomllib.loads(Path("pyproject.toml").read_text())["project"]
+          version = project["version"]
+          assert os.environ["RELEASE_TAG"] == f"v{version}", "Tag and package version differ"
+          wheel, = Path("dist").glob("*.whl")
+          sdist, = Path("dist").glob("*.tar.gz")
+          with zipfile.ZipFile(wheel) as archive:
+              assert "bytespec/py.typed" in archive.namelist(), "Wheel is missing py.typed"
+              metadata = BytesParser().parsebytes(archive.read(f"bytespec-{version}.dist-info/METADATA"))
+              assert metadata["Name"] == "bytespec" and metadata["Version"] == version
+          with tarfile.open(sdist) as archive:
+              assert f"bytespec-{version}/src/bytespec/py.typed" in archive.getnames(), "sdist is missing py.typed"
+          PY
+      - name: Smoke test the release wheel
+        run: |
+          uv venv "$RUNNER_TEMP/bytespec-smoke"
+          uv pip install --python "$RUNNER_TEMP/bytespec-smoke/bin/python" dist/*.whl
+          "$RUNNER_TEMP/bytespec-smoke/bin/python" -I -c "import bytespec; from importlib.metadata import version; assert bytespec.__version__ == version('bytespec')"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: distributions
+          path: dist/*
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    environment:
+      name: pypi
+      url: https://pypi.org/p/bytespec
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: distributions
+          path: dist
+      - name: Publish to PyPI with Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@release/v1

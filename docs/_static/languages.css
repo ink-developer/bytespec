@@ -1,0 +1,8 @@
+.sidebar-languages {
+  padding: 0 1rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.sidebar-languages [aria-current] {
+  font-weight: 600;
+}

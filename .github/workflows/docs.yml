@@ -1,0 +1,47 @@
+name: Documentation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: "0.11.4"
+          python-version: "3.13"
+      - run: uv sync --locked --no-default-groups --group docs
+      - name: Build Russian documentation
+        run: uv run --no-sync python -m sphinx -E -a -n -W --keep-going -b html -D language=ru docs docs/_build/html/ru
+      - name: Build English documentation
+        run: uv run --no-sync python -m sphinx -E -a -n -W --keep-going -b html -D language=en docs docs/_build/html/en
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs/_build/html
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    needs: build
+    runs-on: ubuntu-latest
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

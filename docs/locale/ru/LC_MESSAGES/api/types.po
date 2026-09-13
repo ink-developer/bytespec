@@ -1,0 +1,108 @@
+# Russian translations for bytespec.
+# Copyright (C) 2026, ink-developer
+# Distributed under the MIT license.
+msgid ""
+msgstr ""
+"Project-Id-Version: bytespec 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-12 19:57+0300\n"
+"PO-Revision-Date: 2026-09-12 16:58+0000\n"
+"Last-Translator: bytespec contributors\n"
+"Language: ru\n"
+"Language-Team: Russian\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || "
+"n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "``UInt8/16/32/64``, ``Int8/16/32/64``"
+msgstr "``UInt8/16/32/64``, ``Int8/16/32/64``"
+
+msgid "``int``"
+msgstr "``int``"
+
+msgid "``Float32``, ``Float64``"
+msgstr "``Float32``, ``Float64``"
+
+msgid "IEEE 754 binary32/binary64"
+msgstr "IEEE 754 binary32/binary64"
+
+msgid "``VarUInt``, ``VarInt``"
+msgstr "``VarUInt``, ``VarInt``"
+
+msgid "``bool``"
+msgstr "``bool``"
+
+msgid "``str``"
+msgstr "``str``"
+
+msgid "``encoding``, ``prefix_length``"
+msgstr "``encoding``, ``prefix_length``"
+
+msgid "``bytes``"
+msgstr "``bytes``"
+
+msgid "``prefix_length``"
+msgstr "``prefix_length``"
+
+msgid "``datetime.datetime``"
+msgstr "``datetime.datetime``"
+
+msgid "``uuid.UUID``"
+msgstr "``uuid.UUID``"
+
+msgid "``list[T]``"
+msgstr "``list[T]``"
+
+msgid "``T | None`` / ``Optional[T]``"
+msgstr "``T | None`` / ``Optional[T]``"
+
+msgid "``Annotated[T, ...]``"
+msgstr "``Annotated[T, ...]``"
+
+msgid "Select a fixed-width integer in ``Annotated[int, ...]``."
+msgstr "Выбрать фиксированное целое в ``Annotated[int, ...]``."
+
+msgid "The number of bits: 8, 16, 32, or 64."
+msgstr "Число бит: 8, 16, 32 или 64."
+
+msgid "Allow negative values (signed representation)."
+msgstr "Разрешить отрицательные значения (знаковое представление)."
+
+msgid "Select an IEEE 754 number in ``Annotated[float, ...]``."
+msgstr "Выбрать число IEEE 754 в ``Annotated[float, ...]``."
+
+msgid "The number of bits: 32 or 64. Float32 rounds a Python float to its representation."
+msgstr "Число бит: 32 или 64. Float32 округляет Python float до своего представления."
+
+msgid "Select a varint in ``Annotated[int, ...]``."
+msgstr "Выбрать varint в ``Annotated[int, ...]``."
+
+msgid "If True, use ZigZag and the Int64 range; if False, use an unsigned varint and the UInt64 range."
+msgstr "При True использовать ZigZag и диапазон Int64; при False — unsigned varint и диапазон UInt64."
+
+msgid "Define reusable field settings using ``Annotated``."
+msgstr "Задать переиспользуемые настройки поля через ``Annotated``."
+
+msgid ""
+"Prefix size: 1, 2, 4, or 8 bytes, or ``VarUInt``. ``None`` leaves the field setting unchanged; "
+"``VarInt`` is not supported."
+msgstr ""
+"Размер префикса: 1, 2, 4, 8 байт или ``VarUInt``. ``None`` не меняет настройку поля; ``VarInt`` "
+"не поддерживается."
+
+msgid "The text encoding. A nonempty value replaces the field encoding."
+msgstr "Кодировка текста. Непустое значение заменяет кодировку поля."
+
+msgid "A ready-to-use codec instance instead of automatic selection."
+msgstr "Готовый экземпляр codec вместо автоматического выбора."
+
+msgid ""
+"One supported specification is allowed per Annotated. An explicit ``field(codec=...)`` takes "
+"precedence over CodecSpec."
+msgstr ""
+"В одном Annotated допускается одна поддерживаемая спецификация. Явный ``field(codec=...)`` имеет "
+"приоритет перед CodecSpec."
+
