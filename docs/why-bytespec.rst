@@ -8,35 +8,77 @@ UTF-8 имя с однобайтовой длиной. Перед полями �
 
 Опишите его одной моделью для чтения и записи:
 
-.. testcode::
+.. tab-set::
 
-   from bytespec import Constructor, Flags, PayloadLength, ProtoModel, field
-   from bytespec.types import UInt32
+   .. tab-item:: Python
 
-   class Packet(ProtoModel):
-       __constructor__ = 0x1234
-       __header__ = (Constructor(2), Flags(1), PayloadLength(2))
+      .. testcode::
 
-       user_id: UInt32
-       name: str | None = field(flag=0, prefix_length=1)
+         from bytespec import Constructor, Flags, PayloadLength, ProtoModel, field
+         from bytespec.types import UInt32
 
-   packet = Packet(user_id=42, name="Anna")
-   wire = packet.encode()
-   assert Packet.decode(wire) == packet
-   print(wire.hex(" "))
+         class Packet(ProtoModel):
+             __constructor__ = 0x1234
+             __header__ = (Constructor(2), Flags(1), PayloadLength(2))
 
-.. testoutput::
+             user_id: UInt32
+             name: str | None = field(flag=0, prefix_length=1)
 
-   12 34 01 00 09 00 00 00 2a 04 41 6e 6e 61
+         packet = Packet(user_id=42, name="Anna")
+         wire = packet.encode()
+         assert Packet.decode(wire) == packet
+         print(wire.hex(" "))
 
-.. code-block:: text
+   .. tab-item:: Байты
 
-   12 34       | 01    | 00 09          | 00 00 00 2a | 04 41 6e 6e 61
-   constructor | flags | payload length | user_id     | string length + UTF-8
+      .. testoutput::
 
-Библиотека сама выставила бит имени и вычислила длину тела сообщения: 9 байт.
-``UInt32`` задал размер числа; ``prefix_length=1`` — ширину длины строки.
-В Python значения остались обычными ``int`` и ``str``.
+         12 34 01 00 09 00 00 00 2a 04 41 6e 6e 61
+
+   .. tab-item:: Разбор
+
+      .. container:: wire-bytes
+
+         .. dropdown:: ① Constructor · ``12 34``
+
+            Идентификатор ``0x1234`` занимает два байта. Получатель сверяет его с моделью.
+
+         .. dropdown:: ② Flags · ``01``
+
+            Крайний правый бит равен 1: ``name`` присутствует. Для ``None`` здесь будет ``00``.
+
+         .. dropdown:: ③ PayloadLength · ``00 09``
+
+            После заголовка идут девять байт: четыре для ``user_id`` и пять для ``name``.
+
+         .. dropdown:: ④ user_id · ``00 00 00 2a``
+
+            Число 42. ``UInt32`` остаётся обычным ``int`` в Python, но всегда занимает четыре байта.
+
+         .. dropdown:: ⑤ name · ``04 41 6e 6e 61``
+
+            Длина 4 в одном байте, затем четыре байта UTF-8 текста ``Anna``.
+
+В Python это обычные ``int`` и ``str``. В сообщении ``UInt32`` занимает
+четыре байта, а ``prefix_length=1`` отводит один байт для длины строки.
+
+.. container:: code-notes
+
+   .. dropdown:: ① ``class Packet(ProtoModel)``
+
+      Один класс задаёт чтение и запись. Имена полей доступны в Python;
+      в сообщение записываются их значения.
+
+   .. dropdown:: ② ``__header__``
+
+      Три элемента задают заголовок слева направо. Числа в скобках — размеры
+      в байтах. Здесь заголовок занимает 2 + 1 + 2 = 5 байт.
+
+   .. dropdown:: ③ ``field(flag=0, prefix_length=1)``
+
+      ``flag=0`` назначает имени крайний правый бит присутствия.
+      ``prefix_length=1`` выделяет один байт для длины текста.
+      ``name=None`` убирает имя из сообщения.
 
 Сохранять формат, работать с моделями
 -------------------------------------
@@ -44,7 +86,7 @@ UTF-8 имя с однобайтовой длиной. Перед полями �
 bytespec подходит для существующего или собственного **последовательного
 бинарного формата**, который хочется описать типизированными Python-моделями.
 Вы выбираете размеры целых чисел, префиксы, порядок байтов и заголовок, а библиотека
-обновляет смещения, читает вложенные модели и обрабатывает флаги необязательных полей.
+сама находит границы полей, читает вложенные модели и отмечает присутствующие необязательные поля.
 Собственный codec полностью заменяет запись и чтение конкретного поля.
 
 Например, уберём имя — маску и длину вручную менять не нужно:
@@ -168,7 +210,7 @@ Construct описывает этот пакет и вычисляет длин�
    :language: python
    :start-at:        user_id: UInt32
    :end-at:        name: str | None = field(flag=0, prefix_length=1)
-   :dedent: 7
+   :dedent: 13
 
 Вложенные данные можно описать другой моделью, а codec отдельного поля —
 полностью заменить:

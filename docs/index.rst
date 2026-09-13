@@ -1,16 +1,8 @@
 bytespec
 ========
 
-``bytespec`` описывает последовательный бинарный формат типизированным
-Python-классом. Вы задаёте представление полей; библиотека записывает и читает
-их, считает длины и обновляет смещение. Это удобно для собственных протоколов
-и существующих форматов, которые укладываются в такую модель.
-
-Установите пакет (Python 3.10+):
-
-.. code-block:: console
-
-   python -m pip install bytespec
+Опишите данные Python-классом, сохраните их в байты и прочитайте обратно.
+``bytespec`` сам определяет, где заканчивается одно поле и начинается следующее.
 
 .. testcode::
 
@@ -21,57 +13,97 @@ Python-классом. Вы задаёте представление полей
        active: bool
 
    user = User(name="Anna", active=True)
-   encoded = user.encode()           # bytes для хранения или передачи
-   decoded = User.decode(encoded)   # снова User
+   encoded = user.encode()
+   decoded = User.decode(encoded)
 
-   print(decoded.name)  # Anna
+   print(decoded.name, decoded.active)
+   assert decoded == user
 
 .. testoutput::
-   :hide:
 
-   Anna
+   Anna True
 
-Для чтения нужен тот же класс модели. Бинарное представление определяется
-типами полей и их настройками; при необходимости можно выбрать размер числа,
-кодировку строки или собственное правило сериализации.
+Это новый ``User`` с теми же значениями. В байты можно записывать и списки,
+и вложенные модели. Для существующего бинарного формата вы явно задаёте
+размеры и порядок полей — без отдельного языка схем и генерации кода.
 
-:doc:`why-bytespec` сравнивает один пакет в struct, Construct и bytespec
-и объясняет границы применимости. :doc:`getting-started` проведёт от этого
-примера к модели с другими типами,
-необязательными полями и списками. Если уже знаете, что ищете, откройте
-:doc:`api/index` или :doc:`wire-format`.
+.. code-block:: console
+
+   pip install bytespec
+
+или
+
+.. code-block:: console
+
+   uv add bytespec
+
+Python 3.10+. Начните с первой модели или выберите нужную задачу:
+
+.. grid:: 1 2 2 2
+   :gutter: 2
+
+   .. grid-item-card:: Первая модель
+      :link: getting-started
+      :link-type: doc
+
+      От Python-класса до разбора полученных байтов. Знание протоколов не нужно.
+
+   .. grid-item-card:: Зачем bytespec?
+      :link: why-bytespec
+      :link-type: doc
+
+      Один пакет в bytespec, struct и Construct. Когда подходит каждый инструмент.
+
+   .. grid-item-card:: Практические задачи
+      :link: examples
+      :link-type: doc
+
+      Прочитать TCP-пакет, разобрать несколько сообщений, настроить порядок байтов.
+
+   .. grid-item-card:: Справочник API
+      :link: api/index
+      :link-type: doc
+
+      Сигнатуры, параметры и точные правила чтения и записи.
 
 .. toctree::
    :maxdepth: 1
    :hidden:
    :caption: Начало работы
 
-   why-bytespec
    getting-started
    fields
    types
    optional-defaults
    collections
-   field-configuration
-   examples
 
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: Управление форматом
+   :caption: Устройство и понятия
 
+   concepts
+   why-bytespec
+   wire-format
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: Практические задачи
+
+   examples
+   field-configuration
    headers
    codecs
    inheritance
    validation
    errors
    models
-   wire-format
 
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: Справочник
+   :caption: Справочник API
 
    api/index
    building

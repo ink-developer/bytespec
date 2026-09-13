@@ -69,7 +69,7 @@ def test_public_error_hierarchy():
 
 @pytest.mark.parametrize("offset,size", [(-1, 0), (0, -1)])
 def test_check_available_rejects_negative_api_parameters(offset, size):
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="must be non-negative"):
         check_available(b"abc", offset, size, codec="test")
 
 
@@ -93,7 +93,7 @@ def test_truncated_fixed_width_codec(codec, size, order):
 
 @pytest.mark.parametrize("codec", [StrCodec(1), BytesCodec(1), ListCodec(UInt8Codec(), 1)])
 def test_length_prefix_exceeds_buffer(codec):
-    with pytest.raises(DecodeError, match="expected.*available"):
+    with pytest.raises(DecodeError, match=r"expected.*available"):
         codec.decode(b"xx\x03ab", ORDER, 2)
 
 
@@ -205,7 +205,7 @@ def test_deleted_required_value():
 def test_model_decode_is_bounded_before_reading_field():
     # Header permits one byte of a UInt32; three bytes belong to the next frame.
     buffer = b"\0\1" + b"\0" * 8 + b"\0\0\0\1" + b"\0\0\0\1"
-    with pytest.raises(DecodeError, match="expected 4.*available 1"):
+    with pytest.raises(DecodeError, match=r"expected 4.*available 1"):
         Message.decode_from(buffer, 0)
 
 
@@ -349,7 +349,7 @@ def test_custom_bytespec_error_is_not_wrapped():
         (FixedBytesCodec(0), b""),
         (ListCodec(UInt32Codec()), [0, 2**32 - 1]),
         (EnumCodec(Status, StrCodec()), Status.OK),
-        (DatetimeCodec(), datetime(2026, 9, 7)),  # noqa: DTZ001 - Test naive datetime.
+        (DatetimeCodec(), datetime(2026, 9, 7)),
         (UUIDCodec(), UUID(int=42)),
         (VarUIntCodec(), 2**64 - 1),
         (VarIntCodec(), -(2**63)),

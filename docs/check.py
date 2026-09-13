@@ -79,7 +79,7 @@ def main() -> None:
                 with translated.open("rb") as target:
                     russian = read_po(target, locale="ru", abort_invalid=True)
                 for message in original:
-                    if not message.id or re.search("[А-Яа-яЁё]", message.id):
+                    if not message.id or re.search("[А-Яа-яЁё]", message.id):  # noqa: RUF001
                         continue
                     translation = russian.get(message.id)
                     if translation is None or not translation.string or translation.fuzzy:
@@ -173,7 +173,9 @@ def main() -> None:
                 del sys.modules[module.__name__]
             expected = re.findall(r"^\s*print\(.*\)\s+# (.*)$", snippet, re.MULTILINE)
             if output.getvalue().splitlines() != expected:
-                errors.append(f"{readme_name} example {number}: output differs from print comments")
+                errors.append(
+                    f"{readme_name} example {number}: output differs from print comments"
+                )
 
     if errors:
         raise SystemExit("\n".join(errors))

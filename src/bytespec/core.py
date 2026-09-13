@@ -89,7 +89,7 @@ def field(
 
 
 @dataclass_transform(field_specifiers=(field,))
-class ProtoModel(ProtoModelBase):
+class ProtoModel(ProtoModelBase):  # noqa: PLW1641
     """The base model class for binary serialization.
 
     Declare fields using annotations and create an instance with keyword arguments. ``encode()``
@@ -305,7 +305,9 @@ class ProtoModel(ProtoModelBase):
             raise SchemaError("Found optional fields in model but no Flags presented in header")
 
         if fields and (
-            min(indexes) != 0 or max(indexes) != len(fields) - 1 or max(indexes) != len(indexes) - 1
+            min(indexes) != 0
+            or max(indexes) != len(fields) - 1
+            or max(indexes) != len(indexes) - 1
         ):
             raise SchemaError(
                 f"{cls.__name__}: field indexes must be unique and contiguous from 0, got {[field.index for field in fields]}"

@@ -1,37 +1,71 @@
 Header и framing
 ================
 
-Протокол может хранить длину перед flags или обходиться без идентификатора
-сообщения. ``__header__`` задаёт служебную часть перед полями модели:
+Устройство присылает ``12 03 01 07 01 41``: идентификатор, длину, флаги,
+число и короткую строку. Опишем этот порядок через ``__header__`` —
+служебную часть перед полями модели:
 
-.. testcode::
+.. tab-set::
 
-   from bytespec import Constructor, Flags, PayloadLength, ProtoModel, field
-   from bytespec.types import UInt8, VarUInt
+   .. tab-item:: Python
 
-   class Packet(ProtoModel):
-       __constructor__ = 0x12
-       __header__ = (Constructor(1), PayloadLength(1), Flags(1))
+      .. testcode::
 
-       number: UInt8
-       note: str | None = field(flag=0, prefix_length=1)
+         from bytespec import Constructor, Flags, PayloadLength, ProtoModel, field
+         from bytespec.types import UInt8, VarUInt
 
-   packet = Packet(number=7, note="A")
-   encoded = packet.encode()
-   assert Packet.decode(encoded) == packet
-   print(encoded.hex(" "))
+         class Packet(ProtoModel):
+             __constructor__ = 0x12
+             __header__ = (Constructor(1), PayloadLength(1), Flags(1))
 
-.. testoutput::
+             number: UInt8
+             note: str | None = field(flag=0, prefix_length=1)
 
-   12 03 01 07 01 41
+         packet = Packet(number=7, note="A")
+         encoded = packet.encode()
+         assert Packet.decode(encoded) == packet
+         print(encoded.hex(" "))
+
+   .. tab-item:: Байты
+
+      .. testoutput::
+
+         12 03 01 07 01 41
+
+   .. tab-item:: Разбор
+
+      .. container:: wire-bytes
+
+         .. dropdown:: ① Constructor · ``12``
+
+            Идентификатор ``0x12`` в одном байте: размер выбран через ``Constructor(1)``.
+
+         .. dropdown:: ② PayloadLength · ``03``
+
+            Три байта полей после всего заголовка: ``07 01 41``. Сами флаги сюда не входят.
+
+         .. dropdown:: ③ Flags · ``01``
+
+            Бит 0 включён: поле ``note`` присутствует.
+
+         .. dropdown:: ④ Поля · ``07 01 41``
+
+            ``number=7``, затем длина строки 1 и буква ``A`` в UTF-8.
 
 Здесь ``12`` — constructor, ``03`` — длина **всех полей**, ``01`` — flags.
-Body занимает три байта: ``07`` и строка ``01 41``. В длину не входит
+Содержимое сообщения занимает три байта: ``07`` и строка ``01 41``. В длину не входит
 ни один элемент header, даже если ``PayloadLength`` стоит перед ``Flags``.
 
 Без настройки используется ``(Constructor(2), Flags(8), PayloadLength(4))``:
 14 байт перед полями. По умолчанию ``__constructor__ = 1`` и
 ``__byte_order__ = ByteOrder.BIG``.
+
+.. dropdown:: Что такое header и framing?
+
+   :term:`header` — служебные байты перед полями. :term:`framing` — способ
+   находить границы сообщений. Здесь ``PayloadLength`` хранит длину полей,
+   поэтому получатель знает, сколько байтов прочитать после заголовка.
+   Стандартный заголовок разобран в :doc:`getting-started`.
 
 Что можно включить в header
 ---------------------------

@@ -27,6 +27,44 @@
 записи. Обычный ``int`` использует знаковый ``VarInt`` (ZigZag), а фиксированный
 размер выбирается явно. Для ``float`` нужно указать ``Float32`` или ``Float64``.
 
+.. tab-set::
+
+   .. tab-item:: Python
+
+      .. testcode:: uint32-bytes
+
+         from bytespec import ProtoModel
+         from bytespec.types import UInt32
+
+         class Counter(ProtoModel):
+             value: UInt32
+
+         counter = Counter(value=42)
+         assert Counter.decode(counter.encode()) == counter
+
+   .. tab-item:: Байты
+
+      Первые 14 байт — стандартный заголовок из :doc:`getting-started`.
+      Здесь покажем только поле:
+
+      .. testcode:: uint32-bytes
+
+         print(counter.encode()[14:].hex(" "))
+
+      .. testoutput:: uint32-bytes
+
+         00 00 00 2a
+
+   .. tab-item:: Разбор
+
+      .. container:: wire-bytes
+
+         .. dropdown:: ``value=42`` · ``00 00 00 2a``
+
+            ``2a`` — шестнадцатеричная запись числа 42. ``UInt32`` всегда выделяет
+            четыре байта; для такого маленького числа первые три равны нулю.
+            В Python значение остаётся обычным ``int``.
+
 Как выбрать целое число
 -----------------------
 
@@ -76,7 +114,16 @@
 
    03 ac 02
 
-``03`` — ZigZag-представление -2, ``ac 02`` — unsigned varint 300.
+``03`` — запись -2 через ``VarInt``, ``ac 02`` — запись 300 через ``VarUInt``.
+:term:`varint` экономит место на небольших значениях.
+
+.. dropdown:: Почему -2 записано как ``03``?
+
+   ``VarInt`` сначала сопоставляет каждому знаковому числу неотрицательное:
+   0 → 0, -1 → 1, 1 → 2, -2 → 3. Этот порядок называется ZigZag.
+   Затем результат записывается как ``VarUInt``. Поэтому форматы ``VarInt``
+   и ``VarUInt`` различаются даже для положительных значений.
+
 Срез ``[14:]`` пропускает стандартный header, как в первой модели.
 Все varints ограничены 64-битными диапазонами, даже для обычного Python ``int``.
 

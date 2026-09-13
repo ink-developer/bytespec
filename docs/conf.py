@@ -33,6 +33,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.doctest",
     "sphinx_copybutton",
+    "sphinx_design",
 ]
 
 language = "ru"
@@ -82,7 +83,7 @@ html_theme = "furo"
 html_title = "bytespec"
 templates_path = ["_templates"]
 html_static_path = ["_static"]
-html_css_files = ["languages.css"]
+html_css_files = ["languages.css", "interactive.css"]
 html_sidebars = {
     "**": [
         "sidebar/brand.html",
@@ -121,6 +122,8 @@ def render_alias_signature(
             "TypeAliasForwardRef('bytespec.models.PrefixLength')",
             "bytespec.models.PrefixLength",
         )
+        if "bytespec.models.PrefixLength" not in signature:
+            signature = signature.replace("PrefixLength", "bytespec.models.PrefixLength")
     return signature, return_annotation
 
 
@@ -135,7 +138,17 @@ def write_language_redirect(app: Any, exception: Exception | None) -> None:
         copyfile(Path(app.srcdir) / "_templates/redirect.html", output.parent / "index.html")
 
 
+def resolve_alias_reference(app: Any, env: Any, node: Any, contnode: Any) -> Any:
+    # Sphinx 8 treats the dataclass annotation as a class, but the alias is data.
+    if node.get("refdomain") == "py" and node.get("reftarget") == "bytespec.models.PrefixLength":
+        return env.get_domain("py").resolve_xref(
+            env, node["refdoc"], app.builder, "data", node["reftarget"], node, contnode
+        )
+    return None
+
+
 def setup(app: Any) -> None:
     app.connect("autodoc-process-docstring", skip_typing_docstrings)
     app.connect("autodoc-process-signature", render_alias_signature)
     app.connect("build-finished", write_language_redirect)
+    app.connect("missing-reference", resolve_alias_reference)

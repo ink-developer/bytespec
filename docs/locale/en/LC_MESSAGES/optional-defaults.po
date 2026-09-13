@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bytespec 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-12 14:53+0300\n"
+"POT-Creation-Date: 2026-09-13 17:39+0300\n"
 "PO-Revision-Date: 2026-09-12 11:59+0000\n"
 "Last-Translator: bytespec contributors\n"
 "Language: en\n"
@@ -60,6 +60,125 @@ msgstr ""
 "present and clears it for ``None``. You do not need to calculate or pass flags manually when "
 "reading."
 
+msgid "Увидеть присутствие поля в байтах"
+msgstr "See field presence in bytes"
+
+msgid ""
+"В коротком примере заголовок содержит только ``Flags(1)`` и ``PayloadLength(1)``: один байт "
+"флагов и один байт длины полей. Так разницу между именем и ``None`` проще увидеть. Настройка "
+"такого заголовка подробно разобрана в :doc:`headers`."
+msgstr ""
+"In this short example, the header contains only ``Flags(1)`` and ``PayloadLength(1)``: one "
+"flag byte and one field-length byte. This makes the difference between a name and ``None`` "
+"easier to see. Configuring such a header is covered in :doc:`headers`."
+
+msgid ""
+"from bytespec import Flags, PayloadLength, ProtoModel, field\n"
+"\n"
+"class Contact(ProtoModel):\n"
+"    __header__ = (Flags(1), PayloadLength(1))\n"
+"    name: str | None = field(flag=0, prefix_length=1)"
+msgstr ""
+"from bytespec import Flags, PayloadLength, ProtoModel, field\n"
+"\n"
+"class Contact(ProtoModel):\n"
+"    __header__ = (Flags(1), PayloadLength(1))\n"
+"    name: str | None = field(flag=0, prefix_length=1)"
+
+msgid "name=\"Anna\""
+msgstr "name=\"Anna\""
+
+#, python-brace-format
+msgid ""
+"present = Contact(name=\"Anna\").encode()\n"
+"assert Contact.decode(present).name == \"Anna\"\n"
+"print(present.hex(\" \"))\n"
+"print(f\"Flags: {present[0]:08b}\")"
+msgstr ""
+"present = Contact(name=\"Anna\").encode()\n"
+"assert Contact.decode(present).name == \"Anna\"\n"
+"print(present.hex(\" \"))\n"
+"print(f\"Flags: {present[0]:08b}\")"
+
+msgid ""
+"01 05 04 41 6e 6e 61\n"
+"Flags: 00000001"
+msgstr ""
+"01 05 04 41 6e 6e 61\n"
+"Flags: 00000001"
+
+msgid "Крайний правый бит равен **1**: имя присутствует."
+msgstr "The rightmost bit is **1**: the name is present."
+
+msgid "① Flags · ``01``"
+msgstr "① Flags · ``01``"
+
+msgid "``flag=0`` — крайний правый бит. bytespec включил его, потому что имя задано."
+msgstr "``flag=0`` is the rightmost bit. bytespec set it because a name was provided."
+
+msgid "② PayloadLength · ``05``"
+msgstr "② PayloadLength · ``05``"
+
+msgid "Пять байт поля: один байт длины строки и четыре байта имени."
+msgstr "Five field bytes: one for the string length and four for the name."
+
+msgid "③ name · ``04 41 6e 6e 61``"
+msgstr "③ name · ``04 41 6e 6e 61``"
+
+msgid "Четыре байта текста ``Anna`` с однобайтовой длиной перед ними."
+msgstr "Four text bytes for ``Anna``, preceded by a one-byte length."
+
+msgid "name=None"
+msgstr "name=None"
+
+#, python-brace-format
+msgid ""
+"absent = Contact(name=None).encode()\n"
+"assert Contact.decode(absent).name is None\n"
+"print(absent.hex(\" \"))\n"
+"print(f\"Flags: {absent[0]:08b}\")"
+msgstr ""
+"absent = Contact(name=None).encode()\n"
+"assert Contact.decode(absent).name is None\n"
+"print(absent.hex(\" \"))\n"
+"print(f\"Flags: {absent[0]:08b}\")"
+
+msgid ""
+"00 00\n"
+"Flags: 00000000"
+msgstr ""
+"00 00\n"
+"Flags: 00000000"
+
+msgid "Крайний правый бит равен **0**: имени нет. Остались только два байта заголовка."
+msgstr "The rightmost bit is **0**: there is no name. Only the two header bytes remain."
+
+msgid "① Flags · ``00``"
+msgstr "① Flags · ``00``"
+
+msgid "Все биты выключены. Поле ``name`` отсутствует."
+msgstr "All bits are clear. The ``name`` field is absent."
+
+msgid "② PayloadLength · ``00``"
+msgstr "② PayloadLength · ``00``"
+
+msgid "После заголовка нет байтов полей. При чтении получится ``name=None``."
+msgstr "There are no field bytes after the header. Reading produces ``name=None``."
+
+msgid "Что такое бит и почему ``flag=0``?"
+msgstr "What is a bit, and why ``flag=0``?"
+
+msgid ""
+"Байт содержит восемь битов; каждый может быть 0 или 1. Их нумеруют справа налево, начиная с "
+"нуля. Полю с ``flag=0`` соответствует ``00000001``, полю с ``flag=1`` — ``00000010``, двум "
+"присутствующим полям — ``00000011``. Это :term:`битовая маска <bitmask>`. Вы выбираете "
+"номера; bytespec вычисляет число."
+msgstr ""
+"A byte contains eight bits, each either 0 or 1. They are numbered from right to left, "
+"starting at zero. A field with ``flag=0`` corresponds to ``00000001``, a field with "
+"``flag=1`` to ``00000010``, and both fields present to ``00000011``. This is a "
+":term:`bitmask`. You choose the bit numbers; bytespec computes the number."
+
 msgid "Передать значение"
 msgstr "Supply a value"
 
@@ -93,7 +212,7 @@ msgstr ""
 "The same distinction applies between ``None`` and numeric zero or ``False``. Only ``None`` means "
 "absence."
 
-msgid "Добавить ещё одно optional-поле"
+msgid "Добавить ещё одно необязательное поле"
 msgstr "Add another optional field"
 
 msgid "Каждому полю нужен отдельный номер бита:"
@@ -131,8 +250,8 @@ msgstr ""
 "element in :doc:`headers`. If you change the header, keep ``Flags`` for optional fields: omitting"
 " it raises ``SchemaError`` at class declaration. This check also includes inherited fields."
 
-msgid "Optional со значением по умолчанию"
-msgstr "Optional fields with defaults"
+msgid "Необязательное поле со значением по умолчанию"
+msgstr "An optional field with a default value"
 
 msgid "``default`` по-прежнему действует только для пропущенного аргумента:"
 msgstr "``default`` still applies only when the argument is omitted:"

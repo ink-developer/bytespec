@@ -32,21 +32,44 @@
 ----------------------
 
 Перед строкой библиотека записывает её длину в байтах. Это число называется
-*префиксом длины* и по умолчанию занимает 4 байта. Для короткого текста
+:term:`префиксом длины <length prefix>` и по умолчанию занимает 4 байта. Для короткого текста
 можно выбрать более узкий префикс:
 
-.. testcode::
+.. tab-set::
 
-   class Message(ProtoModel):
-       text: str = field(prefix_length=1)
+   .. tab-item:: Python
 
-   message = Message(text="Hello!")
-   print(Message.decode(message.encode()).text)  # Hello!
+      .. testcode::
 
-.. testoutput::
-   :hide:
+         class Message(ProtoModel):
+             text: str = field(prefix_length=1)
 
-   Hello!
+         message = Message(text="Hello!")
+         assert Message.decode(message.encode()) == message
+
+   .. tab-item:: Байты
+
+      После 14 байт стандартного заголовка находится поле ``text``:
+
+      .. testcode::
+
+         print(message.encode()[14:].hex(" "))
+
+      .. testoutput::
+
+         06 48 65 6c 6c 6f 21
+
+   .. tab-item:: Разбор
+
+      .. container:: wire-bytes
+
+         .. dropdown:: ① Длина · ``06``
+
+            Прочитать шесть следующих байтов. Сам байт длины в это число не входит.
+
+         .. dropdown:: ② Текст · ``48 65 6c 6c 6f 21``
+
+            ``Hello!`` в UTF-8. Всё поле занимает семь байт: один для длины и шесть для текста.
 
 ``prefix_length=1`` отводит один байт **для длины**, не для самого текста.
 Теперь поле вмещает до 255 закодированных байтов. Для UTF-8 это не всегда

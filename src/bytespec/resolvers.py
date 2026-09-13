@@ -41,8 +41,7 @@ def str_codec_factory(_: Any, field_info: FieldInfo, __: ResolveCallback | None 
 
     if field_info.prefix_length is not None:
         return StrCodec(prefix_length=field_info.prefix_length, encoding=field_info.encoding)
-    else:
-        return StrCodec(encoding=field_info.encoding)
+    return StrCodec(encoding=field_info.encoding)
 
 
 def bytes_codec_factory(
@@ -50,8 +49,7 @@ def bytes_codec_factory(
 ) -> BytesCodec:
     if field_info.prefix_length is not None:
         return BytesCodec(prefix_length=field_info.prefix_length)
-    else:
-        return BytesCodec()
+    return BytesCodec()
 
 
 def datetime_codec_factory(
@@ -59,8 +57,7 @@ def datetime_codec_factory(
 ) -> DatetimeCodec:
     if field_info.prefix_length is not None:
         return DatetimeCodec(prefix_length=field_info.prefix_length, encoding=field_info.encoding)
-    else:
-        return DatetimeCodec(encoding=field_info.encoding)
+    return DatetimeCodec(encoding=field_info.encoding)
 
 
 def model_codec_factory(
@@ -81,10 +78,9 @@ def enum_codec_factory(
 
     if issubclass(annotation, str):
         return EnumCodec(annotation, str_codec_factory(annotation, field_info, __))
-    elif issubclass(annotation, int):
+    if issubclass(annotation, int):
         return EnumCodec(annotation, int_codec_factory(annotation, field_info, __))
-    else:
-        raise SchemaError(f"Unknown enum type: {annotation}")
+    raise SchemaError(f"Unknown enum type: {annotation}")
 
 
 def bool_codec_factory(_: Any, __: FieldInfo, ___: ResolveCallback | None = None) -> BoolCodec:
@@ -110,5 +106,4 @@ def list_codec_factory(
 
     if field_info.prefix_length is not None:
         return ListCodec(resolved_type.codec, field_info.prefix_length)
-    else:
-        return ListCodec(resolved_type.codec)
+    return ListCodec(resolved_type.codec)

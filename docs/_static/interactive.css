@@ -1,0 +1,71 @@
+/* Shared RST patterns: wire-layout grids, wire-bytes and code-notes containers. */
+.wire-layout .sd-card-header,
+.wire-layout .sd-card-title {
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+.wire-layout .sd-card-body {
+  padding: 0.8rem;
+}
+
+.wire-bytes,
+.code-notes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 0.6rem;
+  margin-block: 1rem;
+  align-items: start;
+}
+
+.wire-bytes .sd-dropdown,
+.code-notes .sd-dropdown {
+  margin: 0;
+  min-width: 0;
+}
+
+.wire-bytes summary,
+.code-notes summary {
+  overflow-wrap: anywhere;
+}
+
+.wire-bytes summary code {
+  white-space: normal;
+}
+
+.sd-tab-set > input:focus-visible + label,
+.sd-dropdown > summary:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+}
+
+/* Keep long hex dumps inside their code block on narrow screens. */
+.sd-tab-content,
+.sd-card,
+.sd-card-body {
+  min-width: 0;
+}
+
+@media print {
+  .sd-tab-set {
+    display: block;
+  }
+
+  .sd-tab-set > .sd-tab-content,
+  details.sd-dropdown > .sd-summary-content {
+    display: block !important;
+  }
+
+  details.sd-dropdown::details-content {
+    content-visibility: visible;
+  }
+
+  .wire-bytes,
+  .code-notes {
+    display: block;
+  }
+
+  .copybtn {
+    display: none;
+  }
+}

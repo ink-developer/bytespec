@@ -18,7 +18,7 @@ class ICodec(Protocol, Generic[T]):
     position is passed through offset.
     """
 
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, *_args: Any, **_kwargs: Any) -> None:
         super().__init__()
 
     def encode(self, value: T, byte_order: ByteOrder, /) -> bytes:
