@@ -1,6 +1,8 @@
 # bytespec
 
-[English](README.en.md) · Русский
+[English](README.md) · Русский
+
+[Документация](https://bytespec.pymax.org) · [PyPI](https://pypi.org/project/bytespec/)
 
 Типизированные Python-модели для бинарных форматов с явным расположением полей.
 Одна модель читает и записывает числа, строки, списки и вложенные объекты;
@@ -51,6 +53,8 @@ pip install bytespec
 Или `uv add bytespec`.
 
 ## Документация
+
+Полное руководство и справочник API: [bytespec.pymax.org](https://bytespec.pymax.org).
 
 - [Первая модель](docs/getting-started.rst) — объявить, записать и прочитать.
 - [Зачем bytespec?](docs/why-bytespec.rst) — ниша и один пакет в struct, Construct и bytespec.

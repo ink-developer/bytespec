@@ -1,6 +1,8 @@
 # bytespec
 
-English · [Русский](README.md)
+English · [Русский](README.ru.md)
+
+[Documentation](https://bytespec.pymax.org) · [PyPI](https://pypi.org/project/bytespec/)
 
 Typed Python models over an explicit sequential binary representation.
 One model reads and writes numbers, strings, lists, and nested objects;
@@ -53,8 +55,9 @@ Or `uv add bytespec`.
 
 ## Documentation
 
-The full guide and API reference are available in Russian and English.
-To build both versions from a checkout:
+The full guide and API reference are available at [bytespec.pymax.org](https://bytespec.pymax.org) in Russian and English.
+
+To build the documentation locally:
 
 ```bash
 uv sync --locked --group docs
