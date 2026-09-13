@@ -66,8 +66,8 @@ msgstr ":py:obj:`bytespec.Flags <bytespec.Flags>`\\ \\(encoding\\)"
 msgid "A bitmap indicating the presence of optional fields, computed from their values."
 msgstr "A bitmap indicating the presence of optional fields, computed from their values."
 
-msgid ":py:obj:`bytespec.codecs.ICodec <bytespec.codecs.ICodec>`\\ \\(\\*args\\, \\*\\*kwargs\\)"
-msgstr ":py:obj:`bytespec.codecs.ICodec <bytespec.codecs.ICodec>`\\ \\(\\*args\\, \\*\\*kwargs\\)"
+msgid ":py:obj:`bytespec.codecs.ICodec <bytespec.codecs.ICodec>`\\ \\(\\*\\_args\\, \\*\\*\\_kwargs\\)"
+msgstr ":py:obj:`bytespec.codecs.ICodec <bytespec.codecs.ICodec>`\\ \\(\\*\\_args\\, \\*\\*\\_kwargs\\)"
 
 msgid "Interface for writing and reading a single value of type T."
 msgstr "Interface for writing and reading a single value of type T."
