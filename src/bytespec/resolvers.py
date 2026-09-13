@@ -37,7 +37,9 @@ class CodecFactory(Protocol):
     ) -> ICodec[Any]: ...
 
 
-def str_codec_factory(_: Any, field_info: FieldInfo, __: ResolveCallback | None = None) -> StrCodec:
+def str_codec_factory(
+    _: Any, field_info: FieldInfo, __: ResolveCallback | None = None
+) -> StrCodec:
 
     if field_info.prefix_length is not None:
         return StrCodec(prefix_length=field_info.prefix_length, encoding=field_info.encoding)

@@ -186,7 +186,9 @@ class CodecResolver:
             )
 
         if self._is_type_of(annotation, Enum):
-            return ResolvedType(enum_codec_factory(annotation, field_info), is_optional, annotation)
+            return ResolvedType(
+                enum_codec_factory(annotation, field_info), is_optional, annotation
+            )
 
         if get_origin(annotation) is list:
             return ResolvedType(

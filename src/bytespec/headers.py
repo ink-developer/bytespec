@@ -66,7 +66,9 @@ class Constructor(IntegerHeaderElement):
         )
 
         if value != ctx.schema.constructor:
-            raise DecodeError(f"wrong constructor {value:#x}, expected {ctx.schema.constructor:#x}")
+            raise DecodeError(
+                f"wrong constructor {value:#x}, expected {ctx.schema.constructor:#x}"
+            )
 
         return offset
 
