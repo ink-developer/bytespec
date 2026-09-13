@@ -2,7 +2,7 @@
 
 English · [Русский](README.ru.md)
 
-[Documentation](https://bytespec.pymax.org) · [PyPI](https://pypi.org/project/bytespec/)
+[Documentation](https://bytespec.pymax.org) · [PyPI](https://pypi.org/project/bytespec/) · [Telegram](https://t.me/bytespec)
 
 Typed Python models over an explicit sequential binary representation.
 One model reads and writes numbers, strings, lists, and nested objects;
@@ -76,5 +76,10 @@ when building the English version.
 Take a known packet from your protocol, describe a few fields, and compare
 the re-encoded result with the original bytes. That is a useful first check
 of whether the library fits your format.
+
+## Community
+
+Questions, ideas and feedback are welcome in the
+[Telegram community](https://t.me/bytespec).
 
 [MIT license](LICENSE).
